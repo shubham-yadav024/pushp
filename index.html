@@ -1163,12 +1163,15 @@ function doLogout(){
   if(!confirm('Sign out?'))return;
   currentUser=null;
   localStorage.removeItem('tfp2_session');
+  localStorage.removeItem('taskflow_token');
+  localStorage.removeItem('taskflow_user');
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('app-layout').style.display='none';
   document.getElementById('l-username').value='';
   document.getElementById('l-password').value='';
   document.getElementById('l-err').textContent='';
   switchLoginTab('login');
+}
 }
 
 function hardReset(){
