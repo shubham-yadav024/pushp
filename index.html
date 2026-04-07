@@ -2288,29 +2288,19 @@ function copyCallLink(){
 document.addEventListener('input',function(e){if(e.target&&e.target.id==='call-room-name')updateCallLink();});
 
 
-function init(){
-  if(Notification&&Notification.permission==='default')Notification.requestPermission();
-  // Try to restore session
-  const saved=localStorage.getItem('tfp2_session');
-  if(saved){
-    try{
-      const s=JSON.parse(saved);
-      if(db.users&&Array.isArray(db.users)){
-        const user=db.users.find(u=>u.id===s.id&&u.username===s.username);
-        if(user){currentUser=user;launchApp();return;}
-      }
-      // Try backend token
-      if(AuthAPI.isLoggedIn()){
-        const u=AuthAPI.getCurrentUser();
-        if(u){currentUser={id:u.id,username:u.username,name:u.name,role:u.role==='admin'?'admin':'user',memberId:null};launchApp();return;}
-      }
-    }catch(e){localStorage.removeItem('tfp2_session');}
-  }
-  // Check backend token
-  if(AuthAPI.isLoggedIn()){
-    const u=AuthAPI.getCurrentUser();
-    if(u){currentUser={id:u.id,username:u.username,name:u.name,role:u.role==='admin'?'admin':'user',memberId:null};launchApp();return;}
-  }
+function doLogout(){
+  if(!confirm('Sign out?'))return;
+  currentUser=null;
+  localStorage.removeItem('tfp2_session');
+  localStorage.removeItem('taskflow_token');
+  localStorage.removeItem('taskflow_user');
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app-layout').style.display='none';
+  document.getElementById('l-username').value='';
+  document.getElementById('l-password').value='';
+  document.getElementById('l-err').textContent='';
+  switchLoginTab('login');
+}
 init();
 </script>
 </body>
