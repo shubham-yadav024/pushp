@@ -1742,3 +1742,11 @@ function init(){
   if(AuthAPI.isLoggedIn()){
     const u=AuthAPI.getCurrentUser();
     if(u){currentUser={id:u.id,username:u.username,name:u.
+      name,role:u.role==='admin'?'admin':'user',memberId:null};launchApp();return;}}
+  if(tryRestoreSession()){launchApp();return;}
+  document.getElementById('login-screen').style.display='flex';
+}
+init();
+</script>
+</body>
+</html>
