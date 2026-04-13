@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TaskFlow — Field Operations & Team Management Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#06080c;--bg2:#0a0d12;--card:#0f1318;--card2:#141920;
+  --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.11);
+  --green:#00d68f;--green2:#00b377;--green-dim:rgba(0,214,143,0.08);
+  --red:#ff4560;--amber:#ffc947;--teal:#00e5cc;
+  --text:#dde3ec;--text2:#7a8899;--text3:#3a4455;
+  --font:'Outfit',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.65;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,12,0.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#000;}
+.logo-text{font-size:18px;font-weight:700;color:var(--text);}
+.logo-text span{color:var(--green);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-demo{background:var(--green);color:#000;padding:9px 20px;border-radius:7px;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:all .2s;}
+.nav-demo:hover{background:var(--green2);box-shadow:0 4px 16px rgba(0,214,143,0.3);}
+
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2.5rem 5rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(0,214,143,0.08) 0%,transparent 65%);pointer-events:none;}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black,transparent);pointer-events:none;}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;width:100%;}
+.hero-left{position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--green);background:var(--green-dim);border:1px solid rgba(0,214,143,0.18);border-radius:4px;padding:5px 12px;margin-bottom:1.75rem;letter-spacing:.04em;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+h1{font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:1.5rem;}
+h1 em{font-style:normal;color:var(--green);}
+.hero-desc{font-size:17px;color:var(--text2);line-height:1.75;margin-bottom:2.25rem;max-width:480px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-g{background:var(--green);color:#000;padding:13px 28px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-g:hover{background:var(--green2);box-shadow:0 8px 28px rgba(0,214,143,0.28);transform:translateY(-1px);}
+.btn-o{background:transparent;color:var(--text);padding:13px 28px;border-radius:8px;font-size:15px;font-weight:500;text-decoration:none;border:1px solid var(--border2);transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-o:hover{border-color:rgba(0,214,143,0.4);color:var(--green);}
+.hero-trust{display:flex;gap:1.5rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.trust-item{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:6px;}
+.trust-item::before{content:'✓';color:var(--green);font-weight:700;}
+
+.app-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.7);}
+.card-bar{background:var(--card2);padding:12px 16px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border);}
+.cdot{width:10px;height:10px;border-radius:50%;}
+.card-url{font-size:11px;color:var(--text3);margin-left:6px;font-family:var(--mono);}
+.card-body{padding:18px;}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.stat-box{background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center;}
+.stat-n{font-size:20px;font-weight:700;font-family:var(--mono);}
+.stat-l{font-size:9px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;}
+.micro-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:var(--mono);}
+.task-row{display:flex;align-items:center;gap:10px;padding:9px 10px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:7px;margin-bottom:6px;}
+.t-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.t-name{font-size:12px;flex:1;color:var(--text2);}
+.t-badge{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600;font-family:var(--mono);}
+.presence-row{display:flex;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--border);margin-top:4px;}
+.p-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
+.p-dot{width:6px;height:6px;border-radius:50%;}
+
+.proof-bar{padding:2.5rem 2.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);}
+.proof-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:3rem;flex-wrap:wrap;}
+.proof-lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;font-family:var(--mono);}
+.proof-tags{display:flex;gap:2rem;flex-wrap:wrap;}
+.proof-tag{font-size:13px;font-weight:600;color:var(--text3);}
+
+section{padding:6rem 2.5rem;}
+.sec-inner{max-width:1100px;margin:0 auto;}
+.sec-tag{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;}
+.sec-h{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-bottom:1rem;}
+.sec-sub{font-size:16px;color:var(--text2);max-width:540px;line-height:1.75;}
+.alt-bg{background:var(--bg2);}
+
+.prob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:3rem;}
+.prob-card{display:flex;gap:14px;align-items:flex-start;padding:1.4rem;background:var(--card);border:1px solid var(--border);border-radius:12px;}
+.prob-ico{font-size:22px;flex-shrink:0;line-height:1;}
+.prob-title{font-size:14px;font-weight:600;margin-bottom:4px;}
+.prob-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem;}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;position:relative;overflow:hidden;transition:all .25s;}
+.feat-card:hover{border-color:rgba(0,214,143,0.2);transform:translateY(-3px);}
+.feat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,214,143,0.5),transparent);opacity:0;transition:opacity .25s;}
+.feat-card:hover::after{opacity:1;}
+.feat-ico{width:44px;height:44px;border-radius:10px;background:var(--green-dim);border:1px solid rgba(0,214,143,0.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:1.25rem;}
+.feat-title{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.7;}
+.feat-chip{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:4px;background:rgba(255,255,255,0.04);color:var(--text3);border:1px solid var(--border);}
+
+.steps-wrap{display:grid;grid-template-columns:repeat(4,1fr);margin-top:3.5rem;position:relative;}
+.steps-line{position:absolute;top:22px;left:12%;right:12%;height:1px;background:rgba(0,214,143,0.2);}
+.step-item{text-align:center;padding:0 1.25rem;position:relative;z-index:1;}
+.step-n{width:44px;height:44px;border-radius:50%;background:var(--card2);border:1px solid rgba(0,214,143,0.3);color:var(--green);font-family:var(--mono);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;}
+.step-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;}
+.step-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+
+.fw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:3rem;}
+.fw-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;}
+.fw-ico{font-size:28px;margin-bottom:12px;}
+.fw-title{font-size:15px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em;}
+.fw-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:960px;margin:3rem auto 0;}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;}
+.p-card.hot{border-color:rgba(0,214,143,0.3);background:rgba(0,214,143,0.025);}
+.p-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-size:10px;font-weight:800;padding:3px 14px;border-radius:20px;white-space:nowrap;letter-spacing:.06em;font-family:var(--mono);}
+.p-tier{font-family:var(--mono);font-size:11px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.p-price{font-size:38px;font-weight:800;letter-spacing:-.04em;margin-bottom:4px;line-height:1;}
+.p-price sup{font-size:18px;font-weight:500;vertical-align:super;}
+.p-price sub{font-size:14px;font-weight:400;color:var(--text2);}
+.p-note{font-size:12px;color:var(--text3);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);font-family:var(--mono);}
+.p-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:1.75rem;}
+.p-list li{font-size:13px;color:var(--text2);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.p-list li::before{content:'→';color:var(--green);font-family:var(--mono);font-size:12px;flex-shrink:0;margin-top:1px;}
+.p-btn{width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .2s;}
+.p-btn.fill{background:var(--green);color:#000;}
+.p-btn.fill:hover{background:var(--green2);}
+.p-btn.line{background:transparent;color:var(--text2);border:1px solid var(--border2);}
+.p-btn.line:hover{border-color:rgba(0,214,143,0.3);color:var(--green);}
+
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem;}
+.test-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;}
+.test-q{font-size:28px;color:var(--green);margin-bottom:12px;line-height:1;font-family:var(--mono);}
+.test-text{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:1.5rem;}
+.test-author{display:flex;align-items:center;gap:10px;}
+.test-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000;flex-shrink:0;}
+.test-name{font-size:14px;font-weight:600;letter-spacing:-.01em;}
+.test-role{font-size:12px;color:var(--text3);}
+
+.cta-wrap{padding:7rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(0,214,143,0.07) 0%,transparent 70%);pointer-events:none;}
+.cta-wrap h2{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-.04em;margin-bottom:1rem;position:relative;}
+.cta-wrap .cta-sub{font-size:17px;color:var(--text2);margin-bottom:2.5rem;position:relative;}
+.contact-bar{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;margin-top:3rem;padding-top:3rem;border-top:1px solid var(--border);}
+.c-item{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2);}
+.c-item strong{color:var(--text);}
+
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:2rem;max-width:460px;margin:2.5rem auto 0;text-align:left;}
+.form-title{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-bottom:1.25rem;}
+.f-group{display:flex;flex-direction:column;gap:10px;}
+.f-input{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;color:var(--text);outline:none;font-family:var(--font);width:100%;transition:border-color .2s;}
+.f-input:focus{border-color:rgba(0,214,143,0.4);}
+.f-input::placeholder{color:var(--text3);}
+.f-submit{background:var(--green);color:#000;padding:13px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);width:100%;transition:all .2s;}
+.f-submit:hover{background:var(--green2);}
+
+footer{padding:1.75rem 2.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.foot-logo{font-size:15px;font-weight:700;color:var(--text2);}
+.foot-logo span{color:var(--green);}
+.foot-copy{font-size:12px;color:var(--text3);}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}
+.d2{transition-delay:.2s;}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .prob-grid,.feat-grid,.fw-grid,.pricing-grid,.test-grid,.steps-wrap{grid-template-columns:1fr;}
+  .steps-line{display:none;}
+  .nav-links{display:none;}
+}
+@media(max-width:600px){
+  section{padding:4rem 1.25rem;}
+  .hero{padding:7rem 1.25rem 4rem;}
+  nav{padding:0 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark">TF</div>
+    <span class="logo-text">Task<span>Flow</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-demo">Get a Demo →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-left reveal">
+      <div class="hero-eyebrow"><div class="live-dot"></div>Built for Field Operations Teams</div>
+      <h1>Run Your Entire<br>Operation From<br><em>One Platform</em></h1>
+      <p class="hero-desc">TaskFlow replaces scattered WhatsApp threads, manual attendance registers, and disconnected spreadsheets — with a single, real-time system built specifically for construction and field service companies.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-g">Request a Free Demo →</a>
+        <a href="#features" class="btn-o">Explore Features</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-item">No App Required</span>
+        <span class="trust-item">Works on Any Device</span>
+        <span class="trust-item">Live in 24 Hours</span>
+      </div>
+    </div>
+    <div class="hero-right reveal d2">
+      <div class="app-card">
+        <div class="card-bar">
+          <div class="cdot" style="background:#ff5f57"></div>
+          <div class="cdot" style="background:#febc2e"></div>
+          <div class="cdot" style="background:#28c840"></div>
+          <span class="card-url">taskflow / dashboard</span>
+        </div>
+        <div class="card-body">
+          <div class="stat-row">
+            <div class="stat-box"><div class="stat-n" style="color:#00d68f">14</div><div class="stat-l">Total</div></div>
+            <div class="stat-box"><div class="stat-n" style="color:#00e5cc">9</div><div class="stat-l">Done</div></div>
+            <div class="stat-box"><div class="stat-n" style="color:#ffc947">4</div><div class="stat-l">Pending</div></div>
+            <div class="stat-box"><div class="stat-n" style="color:#ff4560">1</div><div class="stat-l">Overdue</div></div>
+          </div>
+          <div class="micro-lbl">Active Tasks</div>
+          <div class="task-row"><div class="t-dot" style="background:#00d68f"></div><div class="t-name">AC Installation — Andheri Site</div><div class="t-badge" style="background:rgba(0,214,143,0.1);color:#00d68f">DONE</div></div>
+          <div class="task-row"><div class="t-dot" style="background:#ffc947"></div><div class="t-name">Plumbing Work — Bandra Flat</div><div class="t-badge" style="background:rgba(255,201,71,0.1);color:#ffc947">PENDING</div></div>
+          <div class="task-row"><div class="t-dot" style="background:#ff4560"></div><div class="t-name">Progress Report — Client XYZ</div><div class="t-badge" style="background:rgba(255,69,96,0.1);color:#ff4560">OVERDUE</div></div>
+          <div class="task-row"><div class="t-dot" style="background:#00e5cc"></div><div class="t-name">Site Inspection — Powai Office</div><div class="t-badge" style="background:rgba(0,229,204,0.1);color:#00e5cc">FIELD</div></div>
+          <div class="presence-row">
+            <div class="p-item"><div class="p-dot" style="background:#00d68f;box-shadow:0 0 5px #00d68f"></div>Ashish — Online</div>
+            <div class="p-item"><div class="p-dot" style="background:#00d68f;box-shadow:0 0 5px #00d68f"></div>Vitthal — Online</div>
+            <div class="p-item"><div class="p-dot" style="background:#2a3040"></div>Madhavi — Away</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proof-bar">
+  <div class="proof-inner">
+    <span class="proof-lbl">Trusted by teams in</span>
+    <div class="proof-tags">
+      <span class="proof-tag">Construction</span>
+      <span class="proof-tag">Interior Design</span>
+      <span class="proof-tag">Facility Management</span>
+      <span class="proof-tag">Electrical &amp; Plumbing</span>
+      <span class="proof-tag">Real Estate</span>
+    </div>
+  </div>
+</div>
+
+<section class="alt-bg">
+  <div class="sec-inner reveal">
+    <p class="sec-tag">The Problem</p>
+    <h2 class="sec-h">Your Team Is Productive.<br>Your Tools Are Not.</h2>
+    <p class="sec-sub">Most field operations teams run on a dangerous combination of WhatsApp groups, paper registers, and gut feeling.</p>
+    <div class="prob-grid">
+      <div class="prob-card"><div class="prob-ico">💬</div><div><div class="prob-title">WhatsApp Overload</div><div class="prob-desc">Critical task updates buried under hundreds of messages. No accountability, no audit trail, no clarity on what's actually been done.</div></div></div>
+      <div class="prob-card"><div class="prob-ico">📍</div><div><div class="prob-title">Zero Field Visibility</div><div class="prob-desc">You assign a field worker to a site — but you have no way to confirm they went, what they did, or when they finished.</div></div></div>
+      <div class="prob-card"><div class="prob-ico">🗂</div><div><div class="prob-title">Manual Attendance Chaos</div><div class="prob-desc">Paper registers get lost. Excel sheets have errors. Month-end reconciliation takes an entire day — every single month.</div></div></div>
+      <div class="prob-card"><div class="prob-ico">⏰</div><div><div class="prob-title">Deadlines Slip Through</div><div class="prob-desc">By the time you realize a task is overdue, the client is already calling. There's no early warning system in place.</div></div></div>
+      <div class="prob-card"><div class="prob-ico">📊</div><div><div class="prob-title">No Performance Data</div><div class="prob-desc">Which team member is consistently underperforming? You suspect, but you can't prove it — because you have no data.</div></div></div>
+      <div class="prob-card"><div class="prob-ico">🔍</div><div><div class="prob-title">Scattered Client Details</div><div class="prob-desc">Customer contact, site address, manager name — spread across notebooks, phones, and memory. Always missing when needed.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="sec-inner reveal">
+    <p class="sec-tag">Platform Features</p>
+    <h2 class="sec-h">Everything Your Operations<br>Team Actually Needs</h2>
+    <p class="sec-sub">No bloat. No unnecessary complexity. Every feature exists because field teams asked for it.</p>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-ico">✅</div><div class="feat-title">Task Assignment & Tracking</div><div class="feat-desc">Create tasks with priority levels, deadlines, and assigned owners. Track real-time status across your entire team from a single dashboard.</div><div class="feat-chip">Admin + Team Member</div></div>
+      <div class="feat-card"><div class="feat-ico">📍</div><div class="feat-title">Field Job Management</div><div class="feat-desc">Log on-site visits with customer name, site address, GPS coordinates, and client-side manager contact — all linked to the task record.</div><div class="feat-chip">GPS Enabled</div></div>
+      <div class="feat-card"><div class="feat-ico">📅</div><div class="feat-title">Automatic Attendance</div><div class="feat-desc">Login marks attendance. Logout calculates work hours. No registers, no manual entry, no month-end reconciliation headaches.</div><div class="feat-chip">Zero Manual Work</div></div>
+      <div class="feat-card"><div class="feat-ico">🟢</div><div class="feat-title">Real-Time Presence</div><div class="feat-desc">See who's online right now directly from the dashboard. Green dot when active, grey when offline — exactly like your team expects.</div><div class="feat-chip">Live Updates</div></div>
+      <div class="feat-card"><div class="feat-ico">🔺</div><div class="feat-title">Escalation Engine</div><div class="feat-desc">Define escalation rules per task — if overdue by 2 hours, notify the manager; 4 hours, notify the director. Fully automated.</div><div class="feat-chip">Configurable Rules</div></div>
+      <div class="feat-card"><div class="feat-ico">📊</div><div class="feat-title">Analytics & Reporting</div><div class="feat-desc">Visual performance dashboards per team member, completion rates, overdue trends, and category breakdowns. Export to Excel or PDF instantly.</div><div class="feat-chip">Excel + PDF Export</div></div>
+      <div class="feat-card"><div class="feat-ico">💬</div><div class="feat-title">Task-Level Comments</div><div class="feat-desc">Every update, question, and note lives on the task itself — not buried in a WhatsApp thread that disappears after 30 days.</div><div class="feat-chip">Full Audit Trail</div></div>
+      <div class="feat-card"><div class="feat-ico">📹</div><div class="feat-title">Built-In Team Meetings</div><div class="feat-desc">Start or join a video call directly from the platform. No third-party accounts, no subscriptions, no extra cost — ever.</div><div class="feat-chip">No Extra Cost</div></div>
+      <div class="feat-card"><div class="feat-ico">📱</div><div class="feat-title">Works on Any Device</div><div class="feat-desc">Browser-based. Open it on a smartphone, tablet, or laptop — no app installation required. Works on iOS, Android, and desktop equally well.</div><div class="feat-chip">Cross-Platform</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt-bg" id="how">
+  <div class="sec-inner reveal">
+    <p class="sec-tag">Onboarding</p>
+    <h2 class="sec-h">Live in Less Than 24 Hours</h2>
+    <p class="sec-sub">We handle the setup. Your team focuses on the work — not the software.</p>
+    <div class="steps-wrap">
+      <div class="steps-line"></div>
+      <div class="step-item"><div class="step-n">01</div><div class="step-title">System Setup</div><div class="step-desc">We configure the platform with your company branding, team members, and user roles.</div></div>
+      <div class="step-item"><div class="step-n">02</div><div class="step-title">Team Training</div><div class="step-desc">A 30-minute walkthrough gets your admin and team members fully up to speed.</div></div>
+      <div class="step-item"><div class="step-n">03</div><div class="step-title">Go Live</div><div class="step-desc">Start assigning tasks, tracking field jobs, and monitoring attendance from day one.</div></div>
+      <div class="step-item"><div class="step-n">04</div><div class="step-title">Ongoing Support</div><div class="step-desc">3 months of dedicated support included — any issue, any question, we respond fast.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-inner reveal">
+    <p class="sec-tag">Who It's For</p>
+    <h2 class="sec-h">Built for Teams That<br>Work in the Field</h2>
+    <div class="fw-grid">
+      <div class="fw-card"><div class="fw-ico">🏗</div><div class="fw-title">Construction Companies</div><div class="fw-desc">Manage multiple sites, assign field crews, track progress against deadlines, and keep clients informed — all in one place.</div></div>
+      <div class="fw-card"><div class="fw-ico">🪟</div><div class="fw-title">Interior Design Firms</div><div class="fw-desc">Coordinate vendors, track project milestones, manage site visits, and document client approvals without losing track.</div></div>
+      <div class="fw-card"><div class="fw-ico">🔧</div><div class="fw-title">Contractors & Trade Services</div><div class="fw-desc">Plumbing, electrical, HVAC — assign technicians to jobs, capture GPS proof-of-visit, and track completion rates.</div></div>
+      <div class="fw-card"><div class="fw-ico">🏢</div><div class="fw-title">Facility Management</div><div class="fw-desc">Coordinate maintenance, housekeeping, and security teams across buildings with real-time task visibility.</div></div>
+      <div class="fw-card"><div class="fw-ico">🏠</div><div class="fw-title">Real Estate Operations</div><div class="fw-desc">Manage site visits, documentation tasks, and follow-up workflows across sales and operations teams.</div></div>
+      <div class="fw-card"><div class="fw-ico">⚙️</div><div class="fw-title">Any Field Service Business</div><div class="fw-desc">If your team works outside an office, TaskFlow was designed for you — from 5 employees to 500.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt-bg" id="pricing">
+  <div class="sec-inner reveal">
+    <p class="sec-tag" style="text-align:center">Pricing</p>
+    <h2 class="sec-h" style="text-align:center">Straightforward Pricing.<br>No Hidden Fees.</h2>
+    <p class="sec-sub" style="text-align:center;margin:0 auto">All plans include onboarding, training, and support. No surprises.</p>
+    <div class="pricing-grid">
+      <div class="p-card">
+        <div class="p-tier">Starter</div>
+        <div class="p-price"><sup>₹</sup>25,000</div>
+        <div class="p-note">One-time · Up to 10 users</div>
+        <ul class="p-list">
+          <li>Full Task Management</li>
+          <li>Field Job Tracking</li>
+          <li>Basic Attendance Logging</li>
+          <li>Analytics Dashboard</li>
+          <li>Excel &amp; PDF Export</li>
+          <li>1 Month Support</li>
+          <li>Team Training Included</li>
+        </ul>
+        <button class="p-btn line" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+      </div>
+      <div class="p-card hot">
+        <div class="p-badge">MOST POPULAR</div>
+        <div class="p-tier">Professional</div>
+        <div class="p-price"><sup>₹</sup>3,000<sub>/mo</sub></div>
+        <div class="p-note">Annual billing · Unlimited users</div>
+        <ul class="p-list">
+          <li>Everything in Starter</li>
+          <li>Automatic Attendance System</li>
+          <li>GPS Location Tagging</li>
+          <li>Escalation Engine</li>
+          <li>WhatsApp &amp; SMS Alerts</li>
+          <li>Real-Time Presence</li>
+          <li>Video Meeting Feature</li>
+          <li>Priority Ongoing Support</li>
+        </ul>
+        <button class="p-btn fill" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Demo →</button>
+      </div>
+      <div class="p-card">
+        <div class="p-tier">Enterprise</div>
+        <div class="p-price"><sup>₹</sup>75,000<sub>+</sub></div>
+        <div class="p-note">One-time · Fully custom</div>
+        <ul class="p-list">
+          <li>Custom Branding &amp; Domain</li>
+          <li>Bespoke Feature Development</li>
+          <li>Payroll System Integration</li>
+          <li>Multi-Branch Support</li>
+          <li>Dedicated Mobile App</li>
+          <li>6 Months Priority Support</li>
+          <li>Source Code Ownership</li>
+        </ul>
+        <button class="p-btn line" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's Talk</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-inner reveal">
+    <p class="sec-tag">Client Feedback</p>
+    <h2 class="sec-h">What Teams Are Saying</h2>
+    <div class="test-grid">
+      <div class="test-card"><div class="test-q">"</div><div class="test-text">We were running everything through WhatsApp — it was chaos. TaskFlow gave us a single place to track all jobs and hold people accountable. The difference was immediate.</div><div class="test-author"><div class="test-av" style="background:#00d68f">RM</div><div><div class="test-name">Ramesh Mehta</div><div class="test-role">Owner · Mehta Constructions, Pune</div></div></div></div>
+      <div class="test-card"><div class="test-q">"</div><div class="test-text">The GPS tagging feature changed how we manage field staff. There's now a record of every site visit. Attendance is automatic — we've saved hours every week on admin work alone.</div><div class="test-author"><div class="test-av" style="background:#00e5cc">SK</div><div><div class="test-name">Suresh Kumar</div><div class="test-role">Operations Manager · SK Interiors, Mumbai</div></div></div></div>
+      <div class="test-card"><div class="test-q">"</div><div class="test-text">The escalation system is the standout feature. Overdue tasks get flagged before the client even notices. Our complaint rate has dropped significantly since we went live.</div><div class="test-author"><div class="test-av" style="background:#ffc947">PJ</div><div><div class="test-name">Priya Joshi</div><div class="test-role">Director · PJ Facility Services, Thane</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-wrap" id="contact">
+  <div class="cta-glow"></div>
+  <div class="sec-inner reveal" style="position:relative">
+    <p class="sec-tag" style="display:flex;justify-content:center">Get Started</p>
+    <h2>See It In Action.<br>No Commitment Required.</h2>
+    <p class="cta-sub">Book a free 30-minute demo — we'll walk you through the entire platform live and answer every question.</p>
+    <div class="hero-actions" style="justify-content:center">
+      <a href="tel:9305370693" class="btn-g">📞 Call: 9305370693</a>
+      <a href="mailto:shubhamy1024@gmail.com" class="btn-o">✉️ Send an Email</a>
+    </div>
+    <div class="form-card">
+      <div class="form-title">Request a Demo</div>
+      <div class="f-group">
+        <input type="text" class="f-input" placeholder="Your Name"/>
+        <input type="tel" class="f-input" placeholder="Phone Number"/>
+        <input type="text" class="f-input" placeholder="Company Name"/>
+        <select class="f-input" style="cursor:pointer;color:#7a8899">
+          <option value="" style="background:#0f1318;color:#7a8899">Company Type</option>
+          <option style="background:#0f1318;color:#dde3ec">Construction</option>
+          <option style="background:#0f1318;color:#dde3ec">Interior Design</option>
+          <option style="background:#0f1318;color:#dde3ec">Facility Management</option>
+          <option style="background:#0f1318;color:#dde3ec">Contractor / Trade Services</option>
+          <option style="background:#0f1318;color:#dde3ec">Real Estate</option>
+          <option style="background:#0f1318;color:#dde3ec">Other</option>
+        </select>
+        <button class="f-submit" onclick="this.textContent='✓ Request received — we\'ll call you within 24 hours';this.style.background='#00b377';this.disabled=true;">Submit Request →</button>
+      </div>
+    </div>
+    <div class="contact-bar">
+      <div class="c-item"></div>
+      <div class="c-item">📞 <strong>9305370693</strong></div>
+      <div class="c-item">✉️ <strong>shubhamy1024@gmail.com</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-logo">Task<span>Flow</span></span>
+  <span class="foot-copy">© 2025 Pushp Construction &amp; Interior · Mumbai · All rights reserved</span>
+</footer>
+
+<script>
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
