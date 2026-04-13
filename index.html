@@ -213,6 +213,26 @@ textarea.fctl{resize:vertical;min-height:65px;}
 .role-admin{background:rgba(46,125,50,.15);color:#2e7d32;border:1px solid rgba(46,125,50,.3);}
 .role-user{background:rgba(77,166,255,.12);color:#4da6ff;border:1px solid rgba(77,166,255,.3);}
 .locked-tip{font-size:11px;color:var(--text3);font-style:italic;padding:4px 6px;}
+
+/* ═══ EMPLOYEE WELCOME BANNER ═══ */
+.emp-welcome-banner{
+  background:linear-gradient(135deg,rgba(46,125,50,0.12),rgba(77,166,255,0.08));
+  border:1px solid rgba(46,125,50,0.25);
+  border-radius:var(--radius-lg);
+  padding:1.25rem 1.5rem;
+  margin-bottom:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.emp-welcome-av{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.emp-welcome-name{font-family:var(--font-head);font-size:18px;font-weight:700;}
+.emp-welcome-sub{font-size:13px;color:var(--text3);margin-top:2px;}
+
 @media(max-width:900px){
   .sidebar{position:fixed;left:0;top:0;height:100vh;transform:translateX(-100%);}
   .sidebar.open{transform:translateX(0);}
@@ -256,9 +276,33 @@ textarea.fctl{resize:vertical;min-height:65px;}
     .lp-stat-txt{font-size:12px;color:#5a6a5a;}
     .lp-stat-val{font-size:13px;font-weight:600;color:#c8d8c8;margin-top:1px;}
     .rp-welcome{font-size:11px;color:#3a3a60;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;}
-    .rp-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f8;line-height:1.2;margin-bottom:1.75rem;}
+    .rp-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#e8e8f8;line-height:1.2;margin-bottom:1.25rem;}
     .rp-title span{color:#4caf50;}
-    .login-tabs{display:flex;gap:0;background:rgba(255,255,255,0.03);border-radius:10px;padding:3px;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.05);}
+
+    /* ═══ ROLE SELECTOR ═══ */
+    .role-selector{display:flex;gap:8px;margin-bottom:1.25rem;}
+    .role-sel-btn{
+      flex:1;padding:10px 8px;border-radius:10px;border:1px solid rgba(255,255,255,0.07);
+      background:transparent;color:#404060;font-size:13px;font-weight:600;cursor:pointer;
+      font-family:'DM Sans',sans-serif;transition:all .2s;text-align:center;
+    }
+    .role-sel-btn.admin-sel{
+      background:rgba(46,125,50,0.15);border-color:rgba(46,125,50,0.5);
+      color:#4caf50;
+    }
+    .role-sel-btn.emp-sel{
+      background:rgba(77,166,255,0.12);border-color:rgba(77,166,255,0.5);
+      color:#4da6ff;
+    }
+    .role-sel-btn.rev-sel{
+      background:rgba(245,166,35,0.12);border-color:rgba(245,166,35,0.5);
+      color:#f5a623;
+    }
+    .login-btn.rev-btn{background:rgba(245,166,35,0.15);color:#f5a623;border-color:rgba(245,166,35,0.4);}
+    .login-btn.rev-btn:hover{background:rgba(245,166,35,0.3);color:#fff;}
+    .role-reviewer{background:rgba(245,166,35,.12);color:#f5a623;border:1px solid rgba(245,166,35,.3);}
+
+    .login-tabs{display:flex;gap:0;background:rgba(255,255,255,0.03);border-radius:10px;padding:3px;margin-bottom:1.25rem;border:1px solid rgba(255,255,255,0.05);}
     .ltab{flex:1;padding:8px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;border-radius:8px;color:#404060;border:none;background:transparent;font-family:var(--font);transition:all .15s;}
     .ltab.active{background:#1a1a2e;color:#9090c8;border:1px solid rgba(255,255,255,0.08);}
     .lfield{margin-bottom:12px;}
@@ -270,6 +314,8 @@ textarea.fctl{resize:vertical;min-height:65px;}
     .lfield select option{background:#1a1a24;}
     .login-btn{width:100%;padding:12px;background:#1e5c21;color:#a8d5aa;border:1px solid rgba(46,125,50,0.4);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;font-family:var(--font);letter-spacing:.05em;transition:all .2s;}
     .login-btn:hover{background:#2e7d32;color:#fff;}
+    .login-btn.emp-btn{background:rgba(77,166,255,0.15);color:#4da6ff;border-color:rgba(77,166,255,0.4);}
+    .login-btn.emp-btn:hover{background:rgba(77,166,255,0.3);color:#fff;}
     .login-err{font-size:12px;color:var(--red);margin-top:8px;text-align:center;min-height:18px;}
     .login-footer{margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.04);text-align:center;font-size:10px;color:#252535;}
     @media(max-width:600px){.login-outer{flex-direction:column;}.login-left{width:100%;min-height:auto;padding:1.5rem;}.login-right{width:100%;}}
@@ -300,6 +346,20 @@ textarea.fctl{resize:vertical;min-height:65px;}
     <div class="login-right">
       <div class="rp-welcome">Welcome back</div>
       <div class="rp-title">Sign in to your<br><span>workspace</span></div>
+
+      <!-- ═══ ROLE SELECTOR BUTTONS ═══ -->
+      <div class="role-selector" style="display:flex;gap:8px;margin-bottom:1.25rem;">
+        <button class="role-sel-btn admin-sel" id="role-btn-admin" onclick="selectLoginRole('admin')">
+          👑 Admin
+        </button>
+        <button class="role-sel-btn" id="role-btn-employee" onclick="selectLoginRole('employee')">
+          👤 Employee
+        </button>
+        <button class="role-sel-btn" id="role-btn-reviewer" onclick="selectLoginRole('reviewer')">
+          👁️ Reviewer
+        </button>
+      </div>
+
       <div class="login-tabs">
         <button class="ltab active" id="ltab-login" onclick="switchLoginTab('login')">Sign In</button>
         <button class="ltab" id="ltab-register" onclick="switchLoginTab('register')">Register</button>
@@ -320,7 +380,7 @@ textarea.fctl{resize:vertical;min-height:65px;}
           </div>
         </div>
         <div class="login-err" id="l-err"></div>
-        <button class="login-btn" onclick="doLogin()">Sign In →</button>
+        <button class="login-btn" id="login-submit-btn" onclick="doLogin()">Sign In as Admin →</button>
       </div>
       <div id="lpanel-register" style="display:none">
         <div class="lfield">
@@ -368,8 +428,8 @@ textarea.fctl{resize:vertical;min-height:65px;}
       <div class="snav-section">
         <div class="snav-lbl">Overview</div>
         <div class="nitem active" onclick="showView('dashboard',this)"><span class="ni">⬛</span>Dashboard</div>
-        <div class="nitem" onclick="showView('tasks',this)"><span class="ni">✅</span>All Tasks <span class="nbadge" id="nb-tasks">0</span></div>
-        <div class="nitem" onclick="showView('field',this)"><span class="ni">📍</span>Field Jobs <span class="nbadge" id="nb-field" style="background:var(--teal)">0</span></div>
+        <div class="nitem" onclick="showView('tasks',this)"><span class="ni">✅</span>My Tasks <span class="nbadge" id="nb-tasks">0</span></div>
+        <div class="nitem" id="nav-field" onclick="showView('field',this)"><span class="ni">📍</span>Field Jobs <span class="nbadge" id="nb-field" style="background:var(--teal)">0</span></div>
         <div class="nitem admin-only" onclick="showView('escalation',this)"><span class="ni">🔺</span>Escalation <span class="nbadge" id="nb-escal" style="background:var(--red)">0</span></div>
       </div>
       <div class="snav-section">
@@ -389,13 +449,13 @@ textarea.fctl{resize:vertical;min-height:65px;}
         <div id="webhook-status-dot" style="font-size:10px;color:var(--text3);margin-top:3px">Not configured</div>
       </div>
       <div class="userpill">
-        <div class="avatar">AD</div>
+        <div class="avatar" id="sidebar-avatar">AD</div>
         <div>
           <div class="uname" style="display:flex;align-items:center;gap:6px">
-            <span id="uname-text">Admin</span>
+            <span id="uname-text">User</span>
             <div class="presence-dot online" id="my-presence-dot" title="You are online"></div>
           </div>
-          <div class="urole">Manager</div>
+          <div class="urole" id="sidebar-urole">Member</div>
         </div>
       </div>
     </div>
@@ -420,7 +480,7 @@ textarea.fctl{resize:vertical;min-height:65px;}
           </div>
         </div>
         <button class="btn btn-ghost btn-sm" onclick="openTeamCall()" style="color:var(--blue);border-color:rgba(77,166,255,0.3)">📹 Team Call</button>
-        <button class="btn btn-primary" id="btn-new-task" onclick="openAddTask()">+ New Task</button>
+        <button class="btn btn-primary" id="btn-new-task" onclick="openAddTask()" style="display:none">+ New Task</button>
         <button class="btn btn-ghost btn-sm" onclick="doLogout()" title="Sign out" style="color:var(--text3)">⎋ Logout</button>
       </div>
     </div>
@@ -428,25 +488,44 @@ textarea.fctl{resize:vertical;min-height:65px;}
     <div class="content">
       <!-- DASHBOARD -->
       <div class="view active" id="view-dashboard">
-        <div class="sgrid">
-          <div class="scard"><div class="sl">Total Tasks</div><div class="sv" id="ds-total">0</div><div class="ss">all members</div></div>
-          <div class="scard green"><div class="sl">Completed</div><div class="sv" id="ds-done">0</div><div class="ss" id="ds-pct">0% rate</div></div>
-          <div class="scard amber"><div class="sl">Pending</div><div class="sv" id="ds-pending">0</div></div>
-          <div class="scard teal"><div class="sl">Field Jobs</div><div class="sv" id="ds-field">0</div><div class="ss">active on-site</div></div>
-        </div>
-        <div class="prow">
-          <div class="panel">
-            <div class="ph"><h3>Recent Tasks</h3><button class="btn btn-ghost btn-sm" onclick="showView('tasks',document.querySelectorAll('.nitem')[1])">View all</button></div>
-            <div class="pb" id="dash-recent"></div>
+        <!-- Admin dashboard stats -->
+        <div id="admin-dash-stats">
+          <div class="sgrid">
+            <div class="scard"><div class="sl">Total Tasks</div><div class="sv" id="ds-total">0</div><div class="ss">all members</div></div>
+            <div class="scard green"><div class="sl">Completed</div><div class="sv" id="ds-done">0</div><div class="ss" id="ds-pct">0% rate</div></div>
+            <div class="scard amber"><div class="sl">Pending</div><div class="sv" id="ds-pending">0</div></div>
+            <div class="scard teal"><div class="sl">Field Jobs</div><div class="sv" id="ds-field">0</div><div class="ss">active on-site</div></div>
           </div>
-          <div>
-            <div class="panel" style="margin-bottom:14px">
-              <div class="ph"><h3>Team Progress</h3></div>
-              <div class="pb" id="dash-team" style="display:flex;flex-direction:column;gap:12px"></div>
-            </div>
+          <div class="prow">
             <div class="panel">
-              <div class="ph"><h3>Activity</h3></div>
-              <div class="pb" style="max-height:200px;overflow-y:auto"><div id="dash-act"></div></div>
+              <div class="ph"><h3>Recent Tasks</h3><button class="btn btn-ghost btn-sm" onclick="showView('tasks',document.querySelectorAll('.nitem')[1])">View all</button></div>
+              <div class="pb" id="dash-recent"></div>
+            </div>
+            <div>
+              <div class="panel" style="margin-bottom:14px">
+                <div class="ph"><h3>Team Progress</h3></div>
+                <div class="pb" id="dash-team" style="display:flex;flex-direction:column;gap:12px"></div>
+              </div>
+              <div class="panel">
+                <div class="ph"><h3>Activity</h3></div>
+                <div class="pb" style="max-height:200px;overflow-y:auto"><div id="dash-act"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employee dashboard -->
+        <div id="emp-dash-stats" style="display:none">
+          <div id="emp-welcome-wrap"></div>
+          <div class="sgrid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="scard"><div class="sl">My Tasks</div><div class="sv" id="emp-ds-total">0</div><div class="ss">assigned to me</div></div>
+            <div class="scard green"><div class="sl">Completed</div><div class="sv" id="emp-ds-done">0</div><div class="ss" id="emp-ds-pct">0% rate</div></div>
+            <div class="scard amber"><div class="sl">Pending</div><div class="sv" id="emp-ds-pending">0</div></div>
+          </div>
+          <div class="prow" style="grid-template-columns:1fr">
+            <div class="panel">
+              <div class="ph"><h3>My Recent Tasks</h3><button class="btn btn-ghost btn-sm" onclick="showView('tasks',document.querySelectorAll('.nitem')[1])">View all</button></div>
+              <div class="pb" id="emp-dash-recent"></div>
             </div>
           </div>
         </div>
@@ -476,7 +555,7 @@ textarea.fctl{resize:vertical;min-height:65px;}
             <h2 style="font-family:var(--font-head);font-size:18px;font-weight:700">Field Jobs</h2>
             <p style="font-size:13px;color:var(--text3);margin-top:2px">On-site tasks with customer &amp; site details</p>
           </div>
-          <button class="btn btn-primary" onclick="openAddTask(true)">+ New Field Task</button>
+          <button class="btn btn-primary admin-only" onclick="openAddTask(true)">+ New Field Task</button>
         </div>
         <div id="field-list"></div>
         <div id="field-empty" style="display:none;text-align:center;padding:3rem;color:var(--text3)">
@@ -574,7 +653,7 @@ textarea.fctl{resize:vertical;min-height:65px;}
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px">
           <div>
             <h2 style="font-family:var(--font-head);font-size:18px;font-weight:700">📅 Attendance &amp; Work Hours</h2>
-            <p style="font-size:13px;color:var(--text3);margin-top:2px">Auto-tracked — Login se Logout tak</p>
+            <p style="font-size:13px;color:var(--text3);margin-top:2px">Auto-tracked from login to logout each day</p>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
             <input type="date" class="fctl" id="att-from" style="width:140px"/>
@@ -589,12 +668,12 @@ textarea.fctl{resize:vertical;min-height:65px;}
           <div class="scard amber"><div class="sl">Total Members</div><div class="sv" id="att-total">0</div></div>
         </div>
         <div class="panel" style="margin-bottom:1.5rem">
-          <div class="ph"><h3>Aaj Ki Attendance</h3><span id="att-date-lbl" style="font-size:12px;color:var(--text3)"></span></div>
+          <div class="ph"><h3>Today's Attendance</h3><span id="att-date-lbl" style="font-size:12px;color:var(--text3)"></span></div>
           <div class="pb" id="att-today-list"><div style="text-align:center;color:var(--text3);padding:2rem">Loading...</div></div>
         </div>
         <div class="panel">
           <div class="ph"><h3>Attendance History</h3></div>
-          <div class="pb" id="att-history-list"><div style="text-align:center;color:var(--text3);padding:2rem">Date filter lagao upar se</div></div>
+          <div class="pb" id="att-history-list"><div style="text-align:center;color:var(--text3);padding:2rem">Please apply a date filter above to view history</div></div>
         </div>
       </div>
 
@@ -831,6 +910,41 @@ textarea.fctl{resize:vertical;min-height:65px;}
 <div class="toast-stack" id="toast-stack"></div>
 
 <script>
+// ═══════════════════════════════════════════
+// ROLE SELECTION ON LOGIN PAGE
+// ═══════════════════════════════════════════
+let selectedLoginRole = 'admin';
+
+function selectLoginRole(role) {
+  selectedLoginRole = role;
+  const adminBtn = document.getElementById('role-btn-admin');
+  const empBtn = document.getElementById('role-btn-employee');
+  const revBtn = document.getElementById('role-btn-reviewer');
+  const submitBtn = document.getElementById('login-submit-btn');
+
+  // Reset all
+  adminBtn.className = 'role-sel-btn';
+  empBtn.className = 'role-sel-btn';
+  revBtn.className = 'role-sel-btn';
+
+  if (role === 'admin') {
+    adminBtn.className = 'role-sel-btn admin-sel';
+    submitBtn.className = 'login-btn';
+    submitBtn.textContent = 'Sign In as Admin →';
+  } else if (role === 'employee') {
+    empBtn.className = 'role-sel-btn emp-sel';
+    submitBtn.className = 'login-btn emp-btn';
+    submitBtn.textContent = 'Sign In as Employee →';
+  } else if (role === 'reviewer') {
+    revBtn.className = 'role-sel-btn rev-sel';
+    submitBtn.className = 'login-btn rev-btn';
+    submitBtn.textContent = 'Sign In as Reviewer →';
+  }
+}
+
+// ═══════════════════════════════════════════
+// API
+// ═══════════════════════════════════════════
 const API_URL='https://pushp-taskflow-backend.onrender.com';
 function getToken(){return localStorage.getItem('taskflow_token');}
 function setToken(t){localStorage.setItem('taskflow_token',t);}
@@ -880,26 +994,17 @@ async function attendanceLogin(memberId){
   if(!memberId)return;
   try{
     const res=await AttendanceAPI.markLogin(memberId);
-    if(res&&res.success){
-      currentSessionId=res.session_id;
-      localStorage.setItem('att_session_id',res.session_id);
-      localStorage.setItem('att_member_id',memberId);
-      console.log('Attendance marked ✅');
-    }
-  }catch(e){console.log('Attendance login error:',e);}
+    if(res&&res.success){currentSessionId=res.session_id;localStorage.setItem('att_session_id',res.session_id);localStorage.setItem('att_member_id',memberId);}
+  }catch(e){}
 }
 async function attendanceLogout(){
   const memberId=localStorage.getItem('att_member_id');
   const sessionId=localStorage.getItem('att_session_id')||currentSessionId;
   if(!memberId||!sessionId)return;
   try{
-    const res=await AttendanceAPI.markLogout(memberId,sessionId);
-    if(res&&res.success){
-      localStorage.removeItem('att_session_id');
-      localStorage.removeItem('att_member_id');
-      console.log('Attendance logout - Hours:',res.total_hours);
-    }
-  }catch(e){console.log('Attendance logout error:',e);}
+    await AttendanceAPI.markLogout(memberId,sessionId);
+    localStorage.removeItem('att_session_id');localStorage.removeItem('att_member_id');
+  }catch(e){}
 }
 async function loadAttendance(){
   const from=document.getElementById('att-from')?.value;
@@ -917,11 +1022,9 @@ async function loadAttendance(){
       document.getElementById('att-avghours').textContent=avgHours+'h';
       document.getElementById('att-total').textContent=summary.length;
       const today=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
-      const lbl=document.getElementById('att-date-lbl');
-      if(lbl)lbl.textContent=today;
+      const lbl=document.getElementById('att-date-lbl');if(lbl)lbl.textContent=today;
       document.getElementById('att-today-list').innerHTML=summary.length?summary.map(s=>{
-        const m=s.member;
-        const isPresent=s.today_status==='present';
+        const m=s.member;const isPresent=s.today_status==='present';
         const loginTime=s.login_time?new Date(s.login_time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}):'—';
         const logoutTime=s.logout_time?new Date(s.logout_time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}):'Active';
         const hours=parseFloat(s.today_hours||0).toFixed(1);
@@ -933,9 +1036,9 @@ async function loadAttendance(){
           <div style="text-align:center;min-width:60px"><div style="font-size:11px;color:var(--text3)">Hours</div><div style="font-size:14px;font-weight:700;color:${parseFloat(hours)>6?'var(--green)':parseFloat(hours)>3?'var(--amber)':'var(--text2)'}">${hours}h</div></div>
           <span style="display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;${isPresent?'background:var(--green-bg);color:var(--green)':'background:var(--red-bg);color:var(--red)'}">${isPresent?'✅ Present':'❌ Absent'}</span>
         </div>`;
-      }).join(''):'<div style="text-align:center;color:var(--text3);padding:2rem">Aaj koi login nahi kiya abhi tak</div>';
+      }).join(''):'<div style="text-align:center;color:var(--text3);padding:2rem">No check-ins recorded today</div>';
     }
-  }catch(e){console.log('Summary error:',e);}
+  }catch(e){}
   if(from||to){
     try{
       const histRes=await AttendanceAPI.getAll(from,to,null);
@@ -945,8 +1048,7 @@ async function loadAttendance(){
           const loginTime=r.login_time?new Date(r.login_time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}):'—';
           const logoutTime=r.logout_time?new Date(r.logout_time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}):'Active';
           const hours=parseFloat(r.total_hours||0).toFixed(1);
-          const memberName=r.members?.name||'—';
-          const memberColor=r.members?.color||'#666';
+          const memberName=r.members?.name||'—';const memberColor=r.members?.color||'#666';
           const date=new Date(r.date+'T12:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
           return`<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
             <div class="oavatar" style="background:${memberColor};width:32px;height:32px;font-size:12px;flex-shrink:0">${initials(memberName)}</div>
@@ -956,12 +1058,11 @@ async function loadAttendance(){
             <div style="text-align:center;min-width:55px"><div style="font-size:11px;color:var(--text3)">Hours</div><div style="font-size:14px;font-weight:700;color:${parseFloat(hours)>6?'var(--green)':parseFloat(hours)>3?'var(--amber)':'var(--text2)'}">${hours}h</div></div>
             <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;${r.status==='present'?'background:var(--green-bg);color:var(--green)':'background:var(--red-bg);color:var(--red)'}">${r.status==='present'?'✅ Present':'❌ Absent'}</span>
           </div>`;
-        }).join(''):'<div style="text-align:center;color:var(--text3);padding:2rem">Is date range mein koi record nahi</div>';
+        }).join(''):'<div style="text-align:center;color:var(--text3);padding:2rem">No attendance records found for the selected date range</div>';
       }
-    }catch(e){console.log('History error:',e);}
+    }catch(e){}
   }
 }
-// ═══ END ATTENDANCE ═══
 
 async function syncFromDB(){
   if(!AuthAPI.isLoggedIn())return;
@@ -973,43 +1074,39 @@ async function syncFromDB(){
     const actRes=await ActivityAPI.getAll(30);
     if(actRes?.success){db.activity=actRes.activities.map(a=>({id:a.id,msg:a.msg,type:a.type,time:a.created_at}));}
     if(typeof renderAll==='function')renderAll();
-  }catch(err){console.error('Sync error:',err);}
+  }catch(err){}
 }
 document.addEventListener('DOMContentLoaded',()=>{if(AuthAPI.isLoggedIn()){syncFromDB();setInterval(syncFromDB,30000);}});
 
-// ═══ PRESENCE SYSTEM ═══
-const SUPA_URL='https://msxqifrelaccpdvlohga.supabase.co';
-const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zeHFpZnJlbGFjY3BkdmxvaGdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDM4NDMsImV4cCI6MjA5MDUxOTg0M30.hmc3MbdPjTd8vUhw-n--IYld69a3yuDzu0rp4QvOiY0';
-let presenceChannel=null;
-let onlineUserIds=new Set();
+// ═══ PRESENCE ═══
+let presenceChannel=null;let onlineUserIds=new Set();
 async function initPresence(){
   if(!currentUser)return;
   try{
     const{createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    const SUPA_URL='https://msxqifrelaccpdvlohga.supabase.co';
+    const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zeHFpZnJlbGFjY3BkdmxvaGdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDM4NDMsImV4cCI6MjA5MDUxOTg0M30.hmc3MbdPjTd8vUhw-n--IYld69a3yuDzu0rp4QvOiY0';
     const supa=createClient(SUPA_URL,SUPA_KEY);
     presenceChannel=supa.channel('presence-room',{config:{presence:{key:currentUser.id}}});
-    presenceChannel
-      .on('presence',{event:'sync'},()=>{
-        const state=presenceChannel.presenceState();
-        onlineUserIds=new Set();
-        Object.values(state).flat().forEach(u=>{if(u.memberId)onlineUserIds.add(u.memberId);onlineUserIds.add(u.userId);});
-        updateAllPresenceDots();
-      })
-      .subscribe(async(status)=>{
-        if(status==='SUBSCRIBED'){await presenceChannel.track({userId:currentUser.id,memberId:currentUser.memberId||null,name:currentUser.name||currentUser.username});}
-      });
-  }catch(e){console.log('Presence error:',e);}
+    presenceChannel.on('presence',{event:'sync'},()=>{
+      const state=presenceChannel.presenceState();
+      onlineUserIds=new Set();
+      Object.values(state).flat().forEach(u=>{if(u.memberId)onlineUserIds.add(u.memberId);onlineUserIds.add(u.userId);});
+      updateAllPresenceDots();
+    }).subscribe(async(status)=>{
+      if(status==='SUBSCRIBED'){await presenceChannel.track({userId:currentUser.id,memberId:currentUser.memberId||null,name:currentUser.name||currentUser.username});}
+    });
+  }catch(e){}
 }
 function isOnline(memberId){return onlineUserIds.has(memberId);}
 function updateAllPresenceDots(){
   db.members.forEach(m=>{
-    const dot=document.getElementById('pdot-'+m.id);
-    const lbl=document.getElementById('plbl-'+m.id);
+    const dot=document.getElementById('pdot-'+m.id);const lbl=document.getElementById('plbl-'+m.id);
     if(dot){const online=isOnline(m.id);dot.className='presence-dot '+(online?'online':'offline');if(lbl){lbl.textContent=online?'● Online':'○ Offline';lbl.style.color=online?'var(--green)':'var(--text3)';}}
   });
 }
 
-// DATA
+// ═══ DATA ═══
 let currentUser=null;
 let db=JSON.parse(localStorage.getItem('tfp2_db')||'null')||{
   members:[
@@ -1023,48 +1120,92 @@ let db=JSON.parse(localStorage.getItem('tfp2_db')||'null')||{
 function saveDB(){localStorage.setItem('tfp2_db',JSON.stringify(db));}
 if(!db.users||!Array.isArray(db.users)){db.users=[{id:'u0',username:'admin',password:'admin123',name:'Admin',role:'admin',memberId:null}];saveDB();}
 if(!db.users.find(u=>u.username==='admin')){db.users.unshift({id:'u0',username:'admin',password:'admin123',name:'Admin',role:'admin',memberId:null});saveDB();}
+
 function isAdmin(){return currentUser&&currentUser.role==='admin';}
-function canEdit(task){if(!currentUser)return false;if(isAdmin())return true;if(task.ownerId&&currentUser.memberId&&task.ownerId===currentUser.memberId)return true;if(task.repId&&currentUser.memberId&&task.repId===currentUser.memberId)return true;return false;}
+function isReviewer(){return currentUser&&currentUser.role==='reviewer';}
+function isAdminOrReviewer(){return isAdmin()||isReviewer();}
+
+// ═══════════════════════════════════════════
+// TASK VISIBILITY — role-based
+// ═══════════════════════════════════════════
+function getVisibleTasks(){
+  if(isAdmin()||isReviewer()) return db.tasks; // Admin & Reviewer see all tasks
+  if(!currentUser || !currentUser.memberId) return db.tasks; // fallback
+  // Employee sees only tasks assigned to them as owner or representative
+  return db.tasks.filter(t =>
+    t.ownerId === currentUser.memberId ||
+    t.repId === currentUser.memberId
+  );
+}
+
+function canEdit(task){
+  if(!currentUser)return false;
+  if(isReviewer())return false; // Reviewer = read-only, no edits
+  if(isAdmin())return true;
+  if(task.ownerId&&currentUser.memberId&&task.ownerId===currentUser.memberId)return true;
+  if(task.repId&&currentUser.memberId&&task.repId===currentUser.memberId)return true;
+  return false;
+}
+
 let taskFilter='all',escStepCount=0,editingId=null;
 const COLORS=['#2e7d32','#c62828','#f5a623','#f05252','#4da6ff','#f06292','#26c6da','#795548'];
 
-// AUTH
+// ═══ AUTH ═══
 function switchLoginTab(tab){
   document.getElementById('ltab-login').classList.toggle('active',tab==='login');
   document.getElementById('ltab-register').classList.toggle('active',tab==='register');
   document.getElementById('lpanel-login').style.display=tab==='login'?'':'none';
   document.getElementById('lpanel-register').style.display=tab==='register'?'':'none';
-  if(tab==='register'){const sel=document.getElementById('r-member');sel.innerHTML='<option value="">— Select your profile (optional) —</option>'+db.members.map(m=>`<option value="${m.id}">${m.name} (${m.role||''})</option>`).join('');}
+  if(tab==='register'){
+    const sel=document.getElementById('r-member');
+    sel.innerHTML='<option value="">— Select your profile (optional) —</option>'+db.members.map(m=>`<option value="${m.id}">${m.name} (${m.role||''})</option>`).join('');
+  }
 }
+
 async function doLogin(){
   const uname=document.getElementById('l-username').value.trim().toLowerCase();
   const pass=document.getElementById('l-password').value;
   const err=document.getElementById('l-err');
-  const btn=document.querySelector('#lpanel-login .login-btn');
+  const btn=document.getElementById('login-submit-btn');
   if(!uname){err.textContent='Please enter your username';return;}
   if(!pass){err.textContent='Please enter your password';return;}
   err.textContent='';
+  const btnLabels={'admin':'Sign In as Admin →','employee':'Sign In as Employee →','reviewer':'Sign In as Reviewer →'};
   if(btn){btn.textContent='Signing in...';btn.disabled=true;}
   try{
     const res=await AuthAPI.login(uname,pass);
-    if(btn){btn.textContent='Sign In →';btn.disabled=false;}
+    if(btn){btn.textContent=btnLabels[selectedLoginRole]||'Sign In →';btn.disabled=false;}
     if(res&&res.success){
-      currentUser={id:res.user.id,username:res.user.username,name:res.user.name,role:res.user.role==='admin'?'admin':'user',memberId:res.user.member_id||null};
-      if(currentUser.memberId)attendanceLogin(currentUser.memberId);
+      const dbRole=res.user.role==='admin'?'admin':'user';
+      // ═══ ROLE MISMATCH CHECK ═══
+      if(selectedLoginRole==='admin' && dbRole!=='admin'){
+        err.textContent='❌ Access denied. This account does not have admin privileges. Please use Employee Login.';return;
+      }
+      // Reviewer: any valid user can log in as reviewer (read-only view)
+      const finalRole = selectedLoginRole==='reviewer' ? 'reviewer' : dbRole;
+      currentUser={id:res.user.id,username:res.user.username,name:res.user.name,role:finalRole,memberId:res.user.member_id||null};
+      if(currentUser.memberId && finalRole!=='reviewer')attendanceLogin(currentUser.memberId);
       launchApp();return;
     }
     err.textContent=(res&&res.message)||'Login failed. Try again.';
   }catch(e){
-    if(btn){btn.textContent='Sign In →';btn.disabled=false;}
-    if(!db.users||!Array.isArray(db.users)){db.users=[{id:'u0',username:'admin',password:'admin123',name:'Admin',role:'admin',memberId:null}];saveDB();}
+    if(btn){btn.textContent=btnLabels[selectedLoginRole]||'Sign In →';btn.disabled=false;}
     const user=db.users.find(u=>u.username.toLowerCase()===uname);
     if(!user){err.textContent='Username not found.';return;}
     if(user.password!==pass){err.textContent='Wrong password.';return;}
-    currentUser=user;localStorage.setItem('tfp2_session',JSON.stringify({id:user.id,username:user.username}));
-    if(currentUser.memberId)attendanceLogin(currentUser.memberId);
+    const dbRole=user.role==='admin'?'admin':'user';
+    // ═══ ROLE MISMATCH CHECK (offline) ═══
+    if(selectedLoginRole==='admin' && dbRole!=='admin'){
+      err.textContent='❌ Access denied. This account does not have admin privileges. Please use Employee Login.';return;
+    }
+    const finalRole = selectedLoginRole==='reviewer' ? 'reviewer' : dbRole;
+    currentUser={...user, role:finalRole};
+    localStorage.setItem('tfp2_session',JSON.stringify({id:user.id,username:user.username}));
+    if(currentUser.memberId && finalRole!=='reviewer')attendanceLogin(currentUser.memberId);
     launchApp();
   }
 }
+
 async function doRegister(){
   const name=document.getElementById('r-name').value.trim();
   const uname=document.getElementById('r-username').value.trim().toLowerCase();
@@ -1079,10 +1220,9 @@ async function doRegister(){
     const res=await AuthAPI.register(uname,pass,name,'member');
     if(btn){btn.textContent='Create Account →';btn.disabled=false;}
     if(res&&res.success){
-      currentUser={id:res.user.id,username:res.user.username,name:res.user.name,role:res.user.role==='admin'?'admin':'user',memberId};
+      currentUser={id:res.user.id,username:res.user.username,name:res.user.name,role:'user',memberId};
       err.style.color='var(--green)';err.textContent='Account created!';
-      setTimeout(()=>{if(currentUser.memberId)attendanceLogin(currentUser.memberId);launchApp();},600);
-      return;
+      setTimeout(()=>{if(currentUser.memberId)attendanceLogin(currentUser.memberId);launchApp();},600);return;
     }
     err.style.color='var(--red)';err.textContent=(res&&res.message)||'Registration failed.';
   }catch(e){
@@ -1095,19 +1235,24 @@ async function doRegister(){
     setTimeout(()=>{if(currentUser.memberId)attendanceLogin(currentUser.memberId);launchApp();},600);
   }
 }
+
 function doLogout(){
   if(!confirm('Sign out?'))return;
-  attendanceLogout();
-  currentUser=null;
+  attendanceLogout();currentUser=null;
   if(presenceChannel){presenceChannel.untrack();presenceChannel=null;}
   localStorage.removeItem('tfp2_session');localStorage.removeItem('taskflow_token');localStorage.removeItem('taskflow_user');
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('app-layout').style.display='none';
   document.getElementById('l-username').value='';document.getElementById('l-password').value='';document.getElementById('l-err').textContent='';
   switchLoginTab('login');
+  // Reset role selector
+  selectLoginRole('admin');
 }
+
 function hardReset(){if(!confirm('Reset all data?'))return;localStorage.removeItem('tfp2_db');localStorage.removeItem('tfp2_session');localStorage.removeItem('tfp2_webhook');location.reload();}
-function renderAll(){renderDashboard();renderTaskList();renderFieldJobs();renderEscalation();renderTeam();renderActivity();updateBadges();scheduleAll();}
+
+function renderAll(){renderDashboard();renderTaskList();renderFieldJobs();renderEscalation();if(isAdmin()){renderTeam();renderActivity();}updateBadges();scheduleAll();}
+
 function launchApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app-layout').style.display='flex';
@@ -1119,27 +1264,80 @@ function launchApp(){
   syncFromDB();setInterval(syncFromDB,30000);
   initPresence();
 }
+
+// ═══════════════════════════════════════════
+// APPLY ROLE UI — ADMIN / EMPLOYEE / REVIEWER
+// ═══════════════════════════════════════════
 function applyRoleUI(){
   const admin=isAdmin();
+  const reviewer=isReviewer();
+  const adminOrReviewer=isAdminOrReviewer();
+
   const badge=document.getElementById('topbar-role-badge');
-  badge.style.display='';badge.className='role-badge '+(admin?'role-admin':'role-user');
-  badge.textContent=(admin?'👑 Admin':'👤 '+(currentUser.name||'User'));
+  badge.style.display='';
+  if(admin){ badge.className='role-badge role-admin'; badge.textContent='👑 Admin'; }
+  else if(reviewer){ badge.className='role-badge role-reviewer'; badge.textContent='👁️ Reviewer'; }
+  else { badge.className='role-badge role-user'; badge.textContent='👤 Employee'; }
+
+  // Admin-only elements (create/manage — hidden for reviewer & employee)
   document.querySelectorAll('.admin-only').forEach(el=>el.style.display=admin?'':'none');
+
+  // New Task button — admin only
   document.getElementById('btn-new-task').style.display=admin?'':'none';
+
+  // Export — admin and reviewer can export
   document.getElementById('export-wrap').style.display='none';
+
+  // Sidebar user info
   const unameEl=document.getElementById('uname-text');
   if(unameEl)unameEl.textContent=currentUser.name||currentUser.username;
-  else document.querySelector('.uname').textContent=currentUser.name||currentUser.username;
-  document.querySelector('.urole').textContent=admin?'Administrator':'Team Member';
-  document.querySelector('.avatar').textContent=initials(currentUser.name||currentUser.username);
+  document.getElementById('sidebar-urole').textContent=admin?'Administrator':reviewer?'Reviewer — Read Only':'Employee';
+  const av=document.getElementById('sidebar-avatar');
+  if(av)av.textContent=initials(currentUser.name||currentUser.username);
+
+  // Reviewer: show all admin nav items (read-only)
+  if(reviewer){
+    document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
+  }
+
+  // Dashboard — admin/reviewer see full dashboard, employee sees personal
+  document.getElementById('admin-dash-stats').style.display=adminOrReviewer?'':'none';
+  document.getElementById('emp-dash-stats').style.display=adminOrReviewer?'none':'';
+
+  // Reviewer banner — read-only notice in topbar
+  if(reviewer){
+    const existing=document.getElementById('reviewer-notice');
+    if(!existing){
+      const notice=document.createElement('div');
+      notice.id='reviewer-notice';
+      notice.style.cssText='background:rgba(245,166,35,0.08);border-bottom:1px solid rgba(245,166,35,0.2);padding:6px 1.5rem;font-size:12px;color:#f5a623;display:flex;align-items:center;gap:8px;flex-shrink:0;';
+      notice.innerHTML='👁️ <strong>Read-Only Mode</strong> — You are logged in as a Reviewer. You can view everything but cannot make any changes.';
+      const content=document.querySelector('.content');
+      if(content)content.parentNode.insertBefore(notice,content);
+    }
+  }
+
+  // Employee welcome banner
+  if(!admin&&!reviewer){
+    const member=currentUser.memberId?db.members.find(m=>m.id===currentUser.memberId):null;
+    document.getElementById('emp-welcome-wrap').innerHTML=`
+      <div class="emp-welcome-banner">
+        <div class="emp-welcome-av" style="background:${member?member.color:'#2e7d32'}">${initials(currentUser.name||currentUser.username)}</div>
+        <div>
+          <div class="emp-welcome-name">Welcome back, ${currentUser.name||currentUser.username}! 👋</div>
+          <div class="emp-welcome-sub">${member?member.role+' · ':''} Your assigned tasks are listed below</div>
+        </div>
+      </div>`;
+  }
 }
+
 function tryRestoreSession(){
   const saved=localStorage.getItem('tfp2_session');if(!saved)return false;
   try{const s=JSON.parse(saved);if(!db.users||!Array.isArray(db.users))return false;const user=db.users.find(u=>u.id===s.id&&u.username===s.username);if(!user)return false;currentUser=user;return true;}
   catch(e){localStorage.removeItem('tfp2_session');return false;}
 }
 
-// UTILS
+// ═══ UTILS ═══
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function now(){return new Date().toISOString();}
 function fmtT(t){if(!t)return'';const[h,m]=t.split(':');const hr=parseInt(h);return(hr>12?hr-12:hr||12)+':'+m+(hr>=12?' PM':' AM');}
@@ -1156,13 +1354,17 @@ function getStatusBadge(t){
   return'<span class="badge badge-pending">Pending</span>';
 }
 
-// NAV
+// ═══ NAV ═══
 function showView(name,el){
+  // Employee restricted views (reviewer can see all)
+  if(!isAdmin()&&!isReviewer()&&['analytics','attendance','team','activity','escalation'].includes(name)){
+    toast('This section is restricted to admin access only.','error');return;
+  }
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.nitem').forEach(n=>n.classList.remove('active'));
   document.getElementById('view-'+name).classList.add('active');
   if(el)el.classList.add('active');
-  const titles={dashboard:'Dashboard',tasks:'All Tasks',field:'Field Jobs',escalation:'Escalation Matrix',analytics:'Analytics',attendance:'Attendance',team:'Team Members',activity:'Activity Log'};
+  const titles={dashboard:'Dashboard',tasks:isAdmin()?'All Tasks':'My Tasks',field:'Field Jobs',escalation:'Escalation Matrix',analytics:'Analytics',attendance:'Attendance',team:'Team Members',activity:'Activity Log'};
   document.getElementById('tbar-title').textContent=titles[name]||'Pushp CI Tasks';
   document.getElementById('export-wrap').style.display=(isAdmin()&&(name==='tasks'||name==='analytics'||name==='dashboard'))?'':'none';
   closeSidebar();
@@ -1178,7 +1380,7 @@ function showView(name,el){
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('soverlay').classList.toggle('open');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('soverlay').classList.remove('open');}
 
-// TOAST
+// ═══ TOAST ═══
 function toast(msg,type='success'){
   const el=document.createElement('div');el.className='toast '+type;
   el.textContent=(type==='success'?'✅ ':type==='warning'?'⚠️ ':type==='error'?'❌ ':'ℹ️ ')+msg;
@@ -1190,7 +1392,7 @@ function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 function toggleFieldSection(){const on=document.getElementById('f-isfield').checked;document.getElementById('field-fields').style.display=on?'block':'none';}
 
-// TASK MODAL
+// ═══ TASK MODAL ═══
 function populateOwnerSelect(selId,selectedId){
   const sel=document.getElementById(selId);
   sel.innerHTML=db.members.map(m=>`<option value="${m.id}"${m.id===selectedId?' selected':''}>${m.name}${m.role?' ('+m.role+')':''}</option>`).join('');
@@ -1276,7 +1478,7 @@ async function saveTask(){
   saveDB();scheduleAll();closeModal('task-modal');renderDashboard();renderTaskList();renderFieldJobs();renderEscalation();updateBadges();
 }
 
-// MEMBER MODAL
+// ═══ MEMBER MODAL ═══
 function openAddMember(){if(!isAdmin()){toast('Admin only','error');return;}['m-name','m-role','m-phone','m-email'].forEach(id=>document.getElementById(id).value='');document.getElementById('m-type').value='office';openModal('member-modal');}
 async function saveMember(){
   const name=document.getElementById('m-name').value.trim();if(!name){toast('Name required','error');return;}
@@ -1297,7 +1499,7 @@ async function deleteMember(id){
   try{await MembersAPI.delete(id);}catch(e){}
 }
 
-// RENDER TASK ITEM
+// ═══ RENDER TASK ITEM ═══
 function renderTaskItem(task,compact){
   const owner=getMember(task.ownerId);const rep=task.repId?getMember(task.repId):null;const fj=task.fieldJob;const over=isOverdue(task);
   const pLabels={high:'High',medium:'Medium',low:'Low'};
@@ -1369,29 +1571,51 @@ async function deleteTask(id){
   try{await TasksAPI.delete(id);}catch(e){}
 }
 
-// RENDER VIEWS
+// ═══════════════════════════════════════════
+// RENDER VIEWS — Role-based filtering
+// ═══════════════════════════════════════════
 function renderDashboard(){
-  const total=db.tasks.length,done=db.tasks.filter(t=>t.done).length,field=db.tasks.filter(t=>t.isField).length;
-  document.getElementById('ds-total').textContent=total;document.getElementById('ds-done').textContent=done;
-  document.getElementById('ds-pct').textContent=total?Math.round(done/total*100)+'% rate':'0% rate';
-  document.getElementById('ds-pending').textContent=total-done;document.getElementById('ds-field').textContent=field;
-  const recent=[...db.tasks].sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt)).slice(0,5);
-  document.getElementById('dash-recent').innerHTML=recent.length?recent.map(t=>renderTaskItem(t,true)).join(''):'<div style="color:var(--text3);font-size:13px;padding:1rem 0;text-align:center">No tasks yet</div>';
-  document.getElementById('dash-team').innerHTML=db.members.map(m=>{
-    const mt=db.tasks.filter(t=>t.ownerId===m.id),md=mt.filter(t=>t.done).length,pct=mt.length?Math.round(md/mt.length*100):0;
-    return`<div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-      <div class="oavatar" style="background:${m.color};width:22px;height:22px;font-size:10px">${initials(m.name)}</div>
-      <span style="font-size:13px;color:var(--text2);flex:1">${m.name}</span>
-      <div class="presence-dot ${isOnline(m.id)?'online':'offline'}" style="margin-right:4px"></div>
-      <span style="font-size:12px;color:var(--text3)">${md}/${mt.length}</span>
-      <span style="font-size:12px;font-weight:600;color:${pct===100?'var(--green)':pct>50?'var(--amber)':'var(--text2)'}">${pct}%</span>
-    </div><div class="prog-wrap"><div class="prog-bar" style="width:${pct}%;background:${m.color}"></div></div></div>`;
-  }).join('')||'<div style="color:var(--text3);font-size:13px">No members yet</div>';
-  const acts=db.activity.slice(0,6);
-  document.getElementById('dash-act').innerHTML=acts.map(a=>`<div class="act-item"><div class="act-dot" style="background:${a.type==='success'?'var(--green)':a.type==='warning'?'var(--amber)':'var(--accent)'}"></div><div><div class="act-text">${a.msg}</div><div class="act-time">${fmtAgo(a.time)}</div></div></div>`).join('')||'<div style="color:var(--text3);font-size:13px">No activity yet</div>';
+  const visibleTasks = getVisibleTasks(); // role-filtered
+
+  if(isAdmin()){
+    // ADMIN: sab tasks ka stats
+    const total=db.tasks.length,done=db.tasks.filter(t=>t.done).length,field=db.tasks.filter(t=>t.isField).length;
+    document.getElementById('ds-total').textContent=total;
+    document.getElementById('ds-done').textContent=done;
+    document.getElementById('ds-pct').textContent=total?Math.round(done/total*100)+'% rate':'0% rate';
+    document.getElementById('ds-pending').textContent=total-done;
+    document.getElementById('ds-field').textContent=field;
+    const recent=[...db.tasks].sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt)).slice(0,5);
+    document.getElementById('dash-recent').innerHTML=recent.length?recent.map(t=>renderTaskItem(t,true)).join(''):'<div style="color:var(--text3);font-size:13px;padding:1rem 0;text-align:center">No tasks yet</div>';
+    document.getElementById('dash-team').innerHTML=db.members.map(m=>{
+      const mt=db.tasks.filter(t=>t.ownerId===m.id),md=mt.filter(t=>t.done).length,pct=mt.length?Math.round(md/mt.length*100):0;
+      return`<div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div class="oavatar" style="background:${m.color};width:22px;height:22px;font-size:10px">${initials(m.name)}</div>
+        <span style="font-size:13px;color:var(--text2);flex:1">${m.name}</span>
+        <div class="presence-dot ${isOnline(m.id)?'online':'offline'}" style="margin-right:4px"></div>
+        <span style="font-size:12px;color:var(--text3)">${md}/${mt.length}</span>
+        <span style="font-size:12px;font-weight:600;color:${pct===100?'var(--green)':pct>50?'var(--amber)':'var(--text2)'}">${pct}%</span>
+      </div><div class="prog-wrap"><div class="prog-bar" style="width:${pct}%;background:${m.color}"></div></div></div>`;
+    }).join('')||'<div style="color:var(--text3);font-size:13px">No members yet</div>';
+    const acts=db.activity.slice(0,6);
+    document.getElementById('dash-act').innerHTML=acts.map(a=>`<div class="act-item"><div class="act-dot" style="background:${a.type==='success'?'var(--green)':a.type==='warning'?'var(--amber)':'var(--accent)'}"></div><div><div class="act-text">${a.msg}</div><div class="act-time">${fmtAgo(a.time)}</div></div></div>`).join('')||'<div style="color:var(--text3);font-size:13px">No activity yet</div>';
+  } else {
+    // EMPLOYEE: sirf uske tasks
+    const total=visibleTasks.length,done=visibleTasks.filter(t=>t.done).length;
+    document.getElementById('emp-ds-total').textContent=total;
+    document.getElementById('emp-ds-done').textContent=done;
+    document.getElementById('emp-ds-pct').textContent=total?Math.round(done/total*100)+'% rate':'0% rate';
+    document.getElementById('emp-ds-pending').textContent=total-done;
+    const recent=[...visibleTasks].sort((a,b)=>new Date(b.updatedAt||b.createdAt)-new Date(a.updatedAt||a.createdAt)).slice(0,5);
+    document.getElementById('emp-dash-recent').innerHTML=recent.length?recent.map(t=>renderTaskItem(t,true)).join(''):`<div style="color:var(--text3);font-size:13px;padding:2rem;text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">🎉</div>
+      <div>No tasks have been assigned to you yet.</div>
+    </div>`;
+  }
 }
+
 function renderTaskList(){
-  let tasks=[...db.tasks];
+  let tasks=[...getVisibleTasks()]; // role-filtered
   const srch=document.getElementById('gsearch').value.toLowerCase();
   if(srch)tasks=tasks.filter(t=>t.title.toLowerCase().includes(srch)||getMember(t.ownerId).name.toLowerCase().includes(srch)||(t.fieldJob&&t.fieldJob.customer&&t.fieldJob.customer.toLowerCase().includes(srch))||(t.fieldJob&&t.fieldJob.site&&t.fieldJob.site.toLowerCase().includes(srch)));
   if(taskFilter==='pending')tasks=tasks.filter(t=>!t.done);
@@ -1404,8 +1628,9 @@ function renderTaskList(){
   document.getElementById('tcount').textContent=tasks.length+' task'+(tasks.length!==1?'s':'');
   document.getElementById('main-tlist').innerHTML=tasks.length?tasks.map(t=>renderTaskItem(t,false)).join(''):'<div style="color:var(--text3);text-align:center;padding:2rem;font-size:14px">No tasks found</div>';
 }
+
 function renderFieldJobs(){
-  const fieldTasks=db.tasks.filter(t=>t.isField);
+  const fieldTasks=getVisibleTasks().filter(t=>t.isField); // role-filtered
   const listEl=document.getElementById('field-list'),emptyEl=document.getElementById('field-empty');
   if(!fieldTasks.length){listEl.innerHTML='';emptyEl.style.display='';return;}
   emptyEl.style.display='none';
@@ -1426,6 +1651,7 @@ function renderFieldJobs(){
     </div>`;
   }).join('');
 }
+
 function renderEscalation(){
   const esc=db.tasks.filter(t=>t.escalation&&t.escalation.length>0);
   const listEl=document.getElementById('esc-list'),emptyEl=document.getElementById('esc-empty');
@@ -1455,6 +1681,7 @@ function renderEscalation(){
     </div>`;
   }).join('');
 }
+
 function renderAnalytics(){
   const tasks=db.tasks,total=tasks.length,done=tasks.filter(t=>t.done).length;
   const over=tasks.filter(t=>isOverdue(t)).length,field=tasks.filter(t=>t.isField).length,pend=tasks.filter(t=>!t.done&&!isOverdue(t)).length;
@@ -1523,14 +1750,16 @@ function renderTeam(){
 function renderActivity(){
   document.getElementById('full-act').innerHTML=db.activity.length?db.activity.map(a=>`<div class="act-item"><div class="act-dot" style="background:${a.type==='success'?'var(--green)':a.type==='warning'?'var(--amber)':'var(--accent)'}"></div><div><div class="act-text">${a.msg}</div><div class="act-time">${fmtAgo(a.time)}</div></div></div>`).join(''):'<div style="color:var(--text3);font-size:13px;padding:1rem">No activity yet</div>';
 }
+
 function updateBadges(){
-  document.getElementById('nb-tasks').textContent=db.tasks.filter(t=>!t.done).length;
+  const myTasks=getVisibleTasks();
+  document.getElementById('nb-tasks').textContent=myTasks.filter(t=>!t.done).length;
   document.getElementById('nb-escal').textContent=db.tasks.filter(t=>t.escalated).length;
-  document.getElementById('nb-field').textContent=db.tasks.filter(t=>t.isField&&!t.done).length;
+  document.getElementById('nb-field').textContent=myTasks.filter(t=>t.isField&&!t.done).length;
 }
 function filterTasks(f,btn){
   taskFilter=f;document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');
-  const labels={all:'All Tasks',pending:'Pending',done:'Completed',overdue:'Overdue',escalated:'Escalated',field:'Field Jobs',high:'High Priority'};
+  const labels={all:isAdmin()?'All Tasks':'My Tasks',pending:'Pending',done:'Completed',overdue:'Overdue',escalated:'Escalated',field:'Field Jobs',high:'High Priority'};
   document.getElementById('tlist-title').textContent=labels[f]||'Tasks';renderTaskList();
 }
 function toggleExportMenu(){const m=document.getElementById('export-menu');m.style.display=m.style.display==='none'?'block':'none';}
@@ -1548,8 +1777,9 @@ function scheduleTask(task){
 function startHourlyReminders(){if(timers._hourly)clearInterval(timers._hourly);fireHourlyReminders();timers._hourly=setInterval(fireHourlyReminders,3600000);}
 function fireHourlyReminders(){
   if(!isWithinIST(9,21))return;
-  const overdue=db.tasks.filter(t=>!t.done&&isOverdue(t));
-  const dueToday=db.tasks.filter(t=>{if(t.done)return false;const today=new Date().toISOString().split('T')[0];return t.dueDate===today&&!isOverdue(t);});
+  const myTasks=getVisibleTasks();
+  const overdue=myTasks.filter(t=>!t.done&&isOverdue(t));
+  const dueToday=myTasks.filter(t=>{if(t.done)return false;const today=new Date().toISOString().split('T')[0];return t.dueDate===today&&!isOverdue(t);});
   const all=[...overdue,...dueToday];if(!all.length)return;
   all.forEach(task=>{const owner=getMember(task.ownerId);const isOv=isOverdue(task);const emoji=isOv?'🔴':'⏰';const label=isOv?'OVERDUE':'Due Today';const msg=emoji+' '+label+': "'+task.title+'" — '+owner.name;if(Notification&&Notification.permission==='granted')new Notification(emoji+' Pushp CI Reminder',{body:msg,tag:'hr_'+task.id,renotify:true});sendWebhook('hourly_reminder',task,{reminder_type:label,is_overdue:isOv});});
   if(overdue.length>0)toast('🔴 '+overdue.length+' overdue task'+(overdue.length>1?'s':'')+' need attention!','error');
@@ -1575,7 +1805,7 @@ function saveWebhookSettings(){
   closeModal('webhook-modal');toast('Webhook settings saved!','success');
 }
 function buildPayload(event,task,extra){
-  const owner=getMember(task.ownerId);const rep=task.repId?getMember(task.repId):null;const fj=task.fieldJob||{};
+  const owner=getMember(task.ownerId);const fj=task.fieldJob||{};
   return{event,company:'Pushp Construction & Interior',task_id:task.id,task_title:task.title,priority:task.priority,due_date:task.dueDate||'',owner_name:owner.name||'',owner_phone:owner.phone||'',is_field_job:!!task.isField,site:fj.site||'',customer:fj.customer||'',message:buildMessage(event,task,extra),timestamp:new Date().toISOString(),...extra};
 }
 function buildMessage(event,task,extra){
@@ -1612,8 +1842,9 @@ function fireEscalation(task,step,idx){
   sendWebhook('escalation',ft,extra);saveDB();renderDashboard();renderTaskList();renderFieldJobs();renderEscalation();updateBadges();
 }
 function exportExcel(){
+  const tasks=isAdmin()?db.tasks:getVisibleTasks();
   const rows=[['Task','Owner','Priority','Due Date','Status','Field Job','Customer','Site']];
-  db.tasks.forEach(t=>{const owner=getMember(t.ownerId);const fj=t.fieldJob||{};const status=t.done?'Completed':isOverdue(t)?'Overdue':'Pending';rows.push([t.title,owner.name,t.priority,t.dueDate||'',status,t.isField?'Yes':'No',fj.customer||'',fj.site||'']);});
+  tasks.forEach(t=>{const owner=getMember(t.ownerId);const fj=t.fieldJob||{};const status=t.done?'Completed':isOverdue(t)?'Overdue':'Pending';rows.push([t.title,owner.name,t.priority,t.dueDate||'',status,t.isField?'Yes':'No',fj.customer||'',fj.site||'']);});
   const csv=rows.map(r=>r.map(v=>{const s=String(v==null?'':v).replace(/"/g,'""');return/[,"\n]/.test(s)?'"'+s+'"':s;}).join(',')).join('\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='PushpCI_Tasks_'+new Date().toISOString().split('T')[0]+'.csv';a.click();URL.revokeObjectURL(url);
@@ -1621,8 +1852,9 @@ function exportExcel(){
 }
 function exportPDF(){
   const nowStr=new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',dateStyle:'long',timeStyle:'short'});
-  const total=db.tasks.length,done=db.tasks.filter(t=>t.done).length,over=db.tasks.filter(t=>isOverdue(t)).length,pct=total?Math.round(done/total*100):0;
-  const taskRows=db.tasks.map(t=>{const owner=getMember(t.ownerId);const fj=t.fieldJob||{};const status=t.done?'Completed':isOverdue(t)?'Overdue':'Pending';return`<tr><td>${t.title}</td><td>${owner.name}</td><td>${t.priority}</td><td>${t.dueDate||'—'}</td><td>${status}</td><td>${fj.customer||'—'}</td></tr>`;}).join('');
+  const tasks=isAdmin()?db.tasks:getVisibleTasks();
+  const total=tasks.length,done=tasks.filter(t=>t.done).length,over=tasks.filter(t=>isOverdue(t)).length,pct=total?Math.round(done/total*100):0;
+  const taskRows=tasks.map(t=>{const owner=getMember(t.ownerId);const fj=t.fieldJob||{};const status=t.done?'Completed':isOverdue(t)?'Overdue':'Pending';return`<tr><td>${t.title}</td><td>${owner.name}</td><td>${t.priority}</td><td>${t.dueDate||'—'}</td><td>${status}</td><td>${fj.customer||'—'}</td></tr>`;}).join('');
   const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><style>body{font-family:Arial,sans-serif;padding:24px;}table{width:100%;border-collapse:collapse;}th,td{padding:8px;border:1px solid #ddd;font-size:12px;}th{background:#f1f8f1;}</style></head><body><h2>Pushp Construction & Interior — Task Report</h2><p>Generated: ${nowStr} | Total: ${total} | Done: ${done} | Overdue: ${over} | Rate: ${pct}%</p><table><thead><tr><th>Task</th><th>Owner</th><th>Priority</th><th>Due Date</th><th>Status</th><th>Customer</th></tr></thead><tbody>${taskRows}</tbody></table></body></html>`;
   const w=window.open('','_blank');w.document.write(html);w.document.close();setTimeout(()=>w.print(),600);toast('PDF ready — Print → Save as PDF','success');
 }
@@ -1693,7 +1925,7 @@ document.querySelectorAll('#ntogs .ntog').forEach(el=>el.addEventListener('click
 
 function addComment(taskId){
   const input=document.getElementById('ci-'+taskId);if(!input)return;
-  const text=input.value.trim();if(!text){toast('Comment likho pehle','warning');return;}
+  const text=input.value.trim();if(!text){toast('Please enter a comment before submitting.','warning');return;}
   const task=db.tasks.find(t=>t.id===taskId);if(!task)return;
   if(!task.comments)task.comments=[];
   task.comments.push({id:uid(),text,author:currentUser?currentUser.name||currentUser.username:'Unknown',memberId:currentUser?currentUser.memberId||currentUser.id:'',time:now()});
@@ -1704,7 +1936,7 @@ function addComment(taskId){
 }
 function captureGPS(taskId){
   if(!navigator.geolocation){toast('GPS is not supported on this device','error');return;}
-  toast('📍 Location dhundh raha hoon...','info');
+  toast('📍 Retrieving your current location...','info');
   navigator.geolocation.getCurrentPosition(
     async(pos)=>{
       const lat=pos.coords.latitude.toFixed(6);const lng=pos.coords.longitude.toFixed(6);
@@ -1727,7 +1959,7 @@ function captureGPS(taskId){
 function openTeamCall(){document.getElementById('call-room-name').value='pushp-ci-team-meeting';updateCallLink();openModal('teamcall-modal');}
 function updateCallLink(){const room=document.getElementById('call-room-name').value.trim().replace(/\s+/g,'-').toLowerCase()||'pushp-ci-team';const link='https://meet.jit.si/'+encodeURIComponent(room);const d=document.getElementById('call-link-display');if(d)d.textContent=link;}
 function randomRoomName(){const w=['alpha','bravo','charlie','delta','echo'];const r=w[Math.floor(Math.random()*w.length)]+'-'+Math.floor(Math.random()*9000+1000);document.getElementById('call-room-name').value='pushp-ci-'+r;updateCallLink();}
-function joinCall(){const room=document.getElementById('call-room-name').value.trim().replace(/\s+/g,'-').toLowerCase()||'pushp-ci-team';window.open('https://meet.jit.si/'+encodeURIComponent(room),'_blank');toast('Meeting khul rahi hai!','success');}
+function joinCall(){const room=document.getElementById('call-room-name').value.trim().replace(/\s+/g,'-').toLowerCase()||'pushp-ci-team';window.open('https://meet.jit.si/'+encodeURIComponent(room),'_blank');toast('Opening meeting room...','success');}
 function copyCallLink(){const room=document.getElementById('call-room-name').value.trim().replace(/\s+/g,'-').toLowerCase()||'pushp-ci-team';const link='https://meet.jit.si/'+encodeURIComponent(room);navigator.clipboard.writeText(link).then(()=>toast('Link copied!','success')).catch(()=>{const el=document.createElement('textarea');el.value=link;document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);toast('Link copied!','success');});}
 document.addEventListener('input',function(e){if(e.target&&e.target.id==='call-room-name')updateCallLink();});
 
