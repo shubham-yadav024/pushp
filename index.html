@@ -1254,6 +1254,27 @@ async function attendanceLogout(){
     localStorage.removeItem('att_session_id');localStorage.removeItem('att_member_id');
   }catch(e){}
 }
+  function exportAttendanceExcel(){
+  const rows=[['Name','Role','Date','Login','Logout','Hours','Status']];
+  const summaryItems=document.querySelectorAll('#att-today-list > div');
+  const today=new Date().toLocaleDateString('en-IN');
+  summaryItems.forEach(item=>{
+    const name=item.querySelector('div > div:first-child')?.textContent||'';
+    const role=item.querySelector('div > div:last-child')?.textContent||'';
+    const cols=item.querySelectorAll('div[style*="min-width"]');
+    const login=cols[0]?.querySelector('div:last-child')?.textContent||'—';
+    const logout=cols[1]?.querySelector('div:last-child')?.textContent||'—';
+    const hours=cols[2]?.querySelector('div:last-child')?.textContent||'0h';
+    const status=item.querySelector('span')?.textContent||'Absent';
+    rows.push([name,role,today,login,logout,hours,status]);
+  });
+  let csv=rows.map(r=>r.map(c=>'"'+c+'"').join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='attendance_'+today.replace(/\//g,'-')+'.csv';
+  a.click();URL.revokeObjectURL(url);
+}
 async function loadAttendance(){
   const from=document.getElementById('att-from')?.value;
   const to=document.getElementById('att-to')?.value;
