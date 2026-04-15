@@ -1297,7 +1297,7 @@ async function sendChatMessage(){
   if(!msg)return;
   input.value='';
   try{
-    await apiCall('POST','/api/chat/general',{msg,sender_name:currentUser?.name||currentUser?.username});
+   await apiCall('POST','/api/chat/general',{text:msg});
     await loadChat();
   }catch(e){}
 }
