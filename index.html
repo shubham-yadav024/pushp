@@ -1674,6 +1674,7 @@ function getStatusBadge(t){
 }
 
 // ═══ NAV ═══
+  
 function showView(name,el){
   // Employee restricted views (reviewer can see all)
   if(!isAdmin()&&!isReviewer()&&['analytics','attendance','team','activity','escalation'].includes(name)){
@@ -1694,6 +1695,7 @@ function showView(name,el){
   if(name==='analytics')renderAnalytics();
   if(name==='attendance')loadAttendance();
   if(name==='team')renderTeam();
+  if(name==='chat')loadChat();
   if(name==='activity')renderActivity();
 }
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('soverlay').classList.toggle('open');}
