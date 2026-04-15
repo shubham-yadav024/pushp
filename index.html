@@ -680,7 +680,19 @@ textarea.fctl{resize:vertical;min-height:65px;}
           <div class="pb" id="att-history-list"><div style="text-align:center;color:var(--text3);padding:2rem">Please apply a date filter above to view history</div></div>
         </div>
       </div>
-
+<!-- CHAT -->
+<div class="view" id="view-chat">
+  <div style="display:flex;flex-direction:column;height:calc(100vh - 120px)">
+    <h2 style="font-family:var(--font-head);font-size:18px;font-weight:700;margin-bottom:1rem">💬 Group Chat</h2>
+    <div class="panel" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+      <div id="chat-messages" style="flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:8px"></div>
+      <div style="padding:1rem;border-top:1px solid var(--border);display:flex;gap:8px">
+        <input id="chat-input" type="text" placeholder="Type a message..." style="flex:1;padding:10px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text1);font-size:14px" onkeydown="if(event.key==='Enter')sendChatMessage()"/>
+        <button class="btn btn-primary" onclick="sendChatMessage()">Send →</button>
+      </div>
+    </div>
+  </div>
+</div>
       <!-- TEAM -->
       <div class="view" id="view-team">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
